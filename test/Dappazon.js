@@ -70,5 +70,31 @@ describe("Dappazon", () => {
 
   })
 
+  describe("Listing", () => {
+    let transaction
+    beforeEach(async () => {
+      //List an item
+      transaction=await dappazon.connect(deployer).list(
+       ID,
+       NAME,
+       CATEGORY,
+       IMAGE,
+       COST,
+       RATING,
+       STOCK
+      )
+
+      await transaction.wait()
+
+      //Buy an item
+      transaction = await dappazon.connect(buyer).buy(ID, {})
+    })
+
+    it("Emits List event", () => {
+      expect (transaction).to.emit(dappazon, "List")
+    })
+
+  })
+
  
 })

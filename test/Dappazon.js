@@ -5,11 +5,31 @@ const tokens = (n) => {
 }
 
 describe("Dappazon", () => {
-
-  it('has a name', async () => {
+  let dappazon
+  let deployer, buyer
+  
+  beforeEach(async () => {
+    //Setup Accounts 
+    [deployer, buyer]=await ethers.getSigners()
+    //Deploy contract
     const Dappazon = await ethers.getContractFactory("Dappazon")
     dappazon = await Dappazon.deploy()
-    const name = await dappazon.name()
-    expect(name).to.equal("Dappazon")
+
+
   })
+
+  describe("Deployment", () => {
+    it("Sets the owner", async () => {
+      expect(await dappazon.owner()).to.equal(deployer.address)
+    })
+
+
+
+    it('has a name', async () => {
+      const name = await dappazon.name()
+      expect(name).to.equal("Dappazon")
+    })
+  })
+
+ 
 })

@@ -87,11 +87,12 @@ describe("Dappazon", () => {
       await transaction.wait()
 
       //Buy an item
-      transaction = await dappazon.connect(buyer).buy(ID, {})
+      transaction = await dappazon.connect(buyer).buy(ID, {value:COST})
     })
 
-    it("Emits List event", () => {
-      expect (transaction).to.emit(dappazon, "List")
+   it("Updates the contract balance",async () => {
+     const result = await ethers.provider.getBalance(dappazon.address)
+     expect (result).to.equal(COST)
     })
 
   })

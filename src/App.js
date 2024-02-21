@@ -21,6 +21,7 @@ function App() {
   const [clothing, setClothing] = useState(null)
   const [toys, setToys] = useState(null)
 
+  const togglePop = ()=>{}
 
   const loadBlockchainData = async () => {
     //Connect to blockchain
@@ -49,6 +50,9 @@ function App() {
     const clothing = items.filter((item) => item.category === 'clothing')
     const toys = items.filter((item)=> item.category === 'toys')
     
+    setElectronics(electronics)
+    setClothing(clothing)
+    setToys(toys)
   }
 
   useEffect(()=> {
@@ -60,6 +64,13 @@ function App() {
       <Navigation account= {account} setAccount={setAccount} />
 
       <h2>Dappazon Best Sellers</h2>
+      {electronics && clothing && toys && (
+        <>
+        <Section title={"Clothing & Jewelry"} items={clothing} togglePop={togglePop} />
+        <Section title={"Electronics & Gadgets"} items={electronics} togglePop={togglePop} />
+        <Section title={"Toys & Gaming"} items={toys} togglePop={togglePop} />
+        </>
+      )}
       
 
     </div>
